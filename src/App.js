@@ -2,7 +2,8 @@ import React from 'react';
 import Form from './components/form';
 import Navbar from './components/navbar';
 import "materialize-css/dist/css/materialize.css";
-
+import { Provider } from 'react-redux';
+import store from './store';
 
 class App extends React.Component {
 
@@ -27,8 +28,10 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Navbar usuario={this.state.usuario} />
-        <Panel onLogin={this.handleLogin}  />
+        <Provider store={store}>
+          <Navbar />
+          <Panel onLogin={this.handleLogin}  />
+        </Provider>
       </div>
     );
   }

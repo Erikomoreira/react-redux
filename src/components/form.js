@@ -1,5 +1,7 @@
 import React from 'react';
 import { consultaAjaxDeUsuario } from './../ajax'
+import { connect } from 'react-redux'
+import { changeUser } from './../store'
 
 let Form = (props) => {
     
@@ -18,7 +20,13 @@ let Form = (props) => {
         let data = {email: email.value, senha: senha.value};
         consultaAjaxDeUsuario(data).then(response => {
             console.log(response);
-            props.onLogin(response.data);
+            
+            // Props dispatch passada pelo connect
+            // Recebe um objeto que vai ser carregado na actions
+            // do reducer
+            props.dispatch(changeUser(response.data));
+
+            // props.onLogin(response.data);
         })
     }
 
@@ -36,4 +44,4 @@ let Form = (props) => {
         </form>
     )}
 
-export default Form;
+export default connect(state => state)(Form);
