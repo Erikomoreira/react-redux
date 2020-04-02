@@ -1,26 +1,45 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Form from './components/form';
+import Navbar from './components/navbar';
+import "materialize-css/dist/css/materialize.css";
 
-function App() {
+
+class App extends React.Component {
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      usuario: {}
+    }
+  }
+
+
+  handleLogin = (dados) => {
+    console.log("DADOS DE LOGIN EM APP", dados);
+
+    this.setState({
+      ...this.state,
+      usuario: dados
+    });
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Navbar usuario={this.state.usuario} />
+        <Panel onLogin={this.handleLogin}  />
+      </div>
+    );
+  }
+}
+
+function Panel(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Form onLogin={props.onLogin} />
     </div>
-  );
+  )
 }
 
 export default App;
